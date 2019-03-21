@@ -1,8 +1,8 @@
 from watchdog.observers import Observer
 from watchdog.events import LoggingEventHandler
-from handler import AsmFileEventHandler
+from realtimeasm.handler import AsmFileEventHandler
 
-if __name__ == '__main__':
+def main() -> None:
     observer = Observer()
     observer.schedule(AsmFileEventHandler(), '.', recursive=True)
     observer.start()
@@ -10,3 +10,6 @@ if __name__ == '__main__':
         observer.join()
     except KeyboardInterrupt:
         pass
+
+if __name__ == '__main__':
+    main()
