@@ -27,5 +27,7 @@ class AsmFileEventHandler(PatternMatchingEventHandler):
             return
         run('objcopy -O binary %s %s' % (objfile, binfile))
         with open(binfile, 'rb') as f:
-            hexdump(f.read())
+            binary = f.read()
+            hexdump(binary)
+            print('\n' + str(binary)[2:-1])
         run('objdump -d -M intel %s' % objfile)
