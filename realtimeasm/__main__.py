@@ -1,10 +1,14 @@
-from watchdog.observers import Observer
+import argparse
 from watchdog.events import LoggingEventHandler
+from watchdog.observers import Observer
 from realtimeasm.handler import AsmFileEventHandler
 
-def main() -> None:
+def main():
+    parser = argparse.ArgumentParser(description='Process some integers.')
+    parser.add_argument('-f', '--format', default='elf64')
+    args = parser.parse_args()
     observer = Observer()
-    observer.schedule(AsmFileEventHandler(), '.', recursive=True)
+    observer.schedule(AsmFileEventHandler(args.format), '.', recursive=True)
     observer.start()
     try:
         observer.join()
